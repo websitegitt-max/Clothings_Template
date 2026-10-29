@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Wear for Modern Living</title>
+  <meta name="description" content="Discover our new range of soft clothes made for your daily look and your best days with the finest fabrics." />
+  <!-- Original Framer Favicon -->
+  <link rel="icon" href="https://framerusercontent.com/images/LljlCxuOGJSqxpmTATOpySDd5U.svg" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans (Framer signature typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+          },
+          colors: {
+            framerBg: '#F7F7F5',
+            framerDark: '#0D0D0D',
+            framerMuted: '#666666',
+            framerBorder: '#E8E8E5',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Base Framer Reset & Smooth Aesthetics */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: #FFFFFF;
+      color: #0D0D0D;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* 1. Top Announcement Infinite Marquee Animation */
+    @keyframes framerMarquee {
+      0% {
+        transform: translate3d(0%, 0, 0);
+      }
+      100% {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: framerMarquee 26s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* 2. Framer Signature Double-Text Vertical Slide-Up Hover Animation */
+    .framer-slide-link {
+      position: relative;
+      display: inline-flex;
+      overflow: hidden;
+      line-height: 1.25;
+      height: 1.25em;
+      align-items: center;
+    }
+
+    .framer-slide-link .slide-inner {
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .framer-slide-link .slide-inner span {
+      display: block;
+      height: 1.25em;
+      line-height: 1.25em;
+      white-space: nowrap;
+    }
+
+    .framer-slide-link:hover .slide-inner,
+    .framer-btn:hover .framer-slide-link .slide-inner {
+      transform: translateY(-50%);
+    }
+
+    /* 3. Staggered Word Reveal Animation (Framer Spring Entrance) */
+    @keyframes wordReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) rotate(1.5deg) scale(0.97);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    .word-animate {
+      display: inline-block;
+      opacity: 0;
+      animation: wordReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeUpSpring {
+      0% {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up-1 {
+      opacity: 0;
+      animation: fadeUpSpring 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+    .fade-up-2 {
+      opacity: 0;
+      animation: fadeUpSpring 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+    .fade-up-3 {
+      opacity: 0;
+      animation: fadeUpSpring 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.72s forwards;
+    }
+    .fade-up-4 {
+      opacity: 0;
+      animation: fadeUpSpring 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards;
+    }
+
+    /* 4. Custom Scrollbar Hiding for Lookbook Strip */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Lookbook Card Active Ring & Hover Transitions */
+    .lookbook-card {
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease;
+    }
+    .lookbook-card:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+    .lookbook-card.active-card {
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255, 255, 255, 0.9);
+      transform: translateY(-4px);
+    }
+
+    /* Hero Background Image Smooth Transition */
+    .hero-bg-layer {
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="bg-white text-framerDark selection:bg-black selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. TOP ANNOUNCEMENT MARQUEE BAR ("Black friday sale 50% off")         -->
+  <!-- ===================================================================== -->
+  <div class="bg-[#0D0D0D] text-white py-2.5 overflow-hidden border-b border-white/10 relative z-50">
+    <div class="marquee-track flex items-center">
+      <!-- Group 1 -->
+      <div class="flex items-center space-x-10 px-5 text-[12px] sm:text-[13px] font-medium tracking-wide">
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+      </div>
+      <!-- Group 2 (Duplicate for seamless infinite loop) -->
+      <div class="flex items-center space-x-10 px-5 text-[12px] sm:text-[13px] font-medium tracking-wide" aria-hidden="true">
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+        <span class="flex items-center gap-3"><span class="w-1.5 h-1.5 rounded-full bg-white/60"></span>Black friday sale 50% off</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 2. STICKY FRAMER NAVIGATION BAR                                       -->
+  <!-- ===================================================================== -->
+  <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-black/[0.06] transition-all duration-300">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-[72px] flex items-center justify-between">
+      
+      <!-- Left: Exact Brand Logo SVG -->
+      <a href="#home" class="flex items-center focus:outline-none group" aria-label="Brand Home">
+        <img 
+          src="https://framerusercontent.com/images/k3mQgskzRmcKKsc3Urx85y2azU.svg?width=67&height=23" 
+          alt="Brand Logo" 
+          width="67" 
+          height="23" 
+          class="w-[67px] h-[23px] object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      </a>
+
+      <!-- Center: Navigation Links with Framer Double-Text Vertical Slide Hover -->
+      <div class="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#111111]">
+        <a href="#home" class="framer-slide-link py-1">
+          <span class="slide-inner">
+            <span>Home</span>
+            <span class="text-black/60">Home</span>
+          </span>
+        </a>
+        <a href="#about" class="framer-slide-link py-1">
+          <span class="slide-inner">
+            <span>About</span>
+            <span class="text-black/60">About</span>
+          </span>
+        </a>
+        <a href="#shop" class="framer-slide-link py-1">
+          <span class="slide-inner">
+            <span>Shop</span>
+            <span class="text-black/60">Shop</span>
+          </span>
+        </a>
+        <a href="#blog" class="framer-slide-link py-1">
+          <span class="slide-inner">
+            <span>Blog</span>
+            <span class="text-black/60">Blog</span>
+          </span>
+        </a>
+        <a href="#contact" class="framer-slide-link py-1">
+          <span class="slide-inner">
+            <span>Contact</span>
+            <span class="text-black/60">Contact</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Right: Cart Bag Icon + "Shop all items" Pill Button -->
+      <div class="flex items-center gap-3">
+        <!-- Cart Icon Button -->
+        <button 
+          onclick="toggleCartDrawer(true)" 
+          aria-label="Open shopping bag"
+          class="relative w-10 h-10 rounded-full bg-[#F3F3F1] hover:bg-[#E8E8E4] flex items-center justify-center transition-colors"
+        >
+          <i data-lucide="shopping-bag" class="w-[18px] h-[18px] text-[#0D0D0D]"></i>
+          <span 
+            id="cartCountBadge" 
+            class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#0D0D0D] text-white text-[11px] font-semibold flex items-center justify-center"
+          >2</span>
+        </button>
+
+        <!-- "Shop all items" Pill CTA with Framer Double-Text Slide -->
+        <a 
+          href="#shop" 
+          class="framer-btn hidden sm:inline-flex items-center justify-center bg-[#0D0D0D] hover:bg-[#222222] text-white text-[13.5px] font-medium px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm"
+        >
+          <span class="framer-slide-link">
+            <span class="slide-inner">
+              <span>Shop all items</span>
+              <span>Shop all items</span>
+            </span>
+          </span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button 
+          id="mobileMenuBtn" 
+          onclick="toggleMobileMenu()" 
+          aria-label="Toggle Menu"
+          class="md:hidden w-10 h-10 rounded-full bg-[#F3F3F1] flex items-center justify-center text-[#0D0D0D]"
+        >
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenuDrawer" class="hidden md:hidden bg-white border-b border-black/10 px-6 py-5 space-y-3">
+      <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-[15px] font-medium text-black border-b border-black/5">Home</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-[15px] font-medium text-black border-b border-black/5">About</a>
+      <a href="#shop" onclick="toggleMobileMenu()" class="block py-2 text-[15px] font-medium text-black border-b border-black/5">Shop</a>
+      <a href="#blog" onclick="toggleMobileMenu()" class="block py-2 text-[15px] font-medium text-black border-b border-black/5">Blog</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-[15px] font-medium text-black pb-3">Contact</a>
+      <a href="#shop" onclick="toggleMobileMenu()" class="block w-full text-center bg-[#0D0D0D] text-white text-[14px] font-medium py-3 rounded-full">
+        Shop all items
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- 3. HERO SECTION (<header id="home">) WITH EXACT FRAMER ASSETS         -->
+  <!-- ===================================================================== -->
+  <header id="home" class="px-3 sm:px-6 pt-3 pb-8 max-w-[1440px] mx-auto">
+    <div class="relative w-full min-h-[86vh] lg:min-h-[880px] rounded-[24px] sm:rounded-[32px] overflow-hidden flex flex-col justify-between bg-[#141414] shadow-2xl">
+      
+      <!-- Dynamic Hero Background Image Container -->
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <img 
+          id="heroMainBg"
+          src="https://framerusercontent.com/images/g813yVl0fq2gEobS7kOZx537SY.jpg?width=1408&height=1408" 
+          alt="Warm Winter Layers Hero" 
+          class="hero-bg-layer w-full h-full object-cover object-center scale-[1.02]"
+        />
+        <!-- Multi-layered editorial dark gradient overlay for crisp text legibility -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/80"></div>
+        <div class="absolute inset-0 bg-radial from-transparent via-black/20 to-black/60"></div>
+      </div>
+
+      <!-- Center Hero Content -->
+      <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 pt-16 pb-10 max-w-4xl mx-auto">
+        
+        <!-- Glassmorphic Pill Badge: "Soft" + "Warm Winter Layers" -->
+        <div class="fade-up-1 inline-flex items-center gap-2.5 p-1.5 pr-4 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white mb-7 shadow-lg">
+          <span class="px-3 py-1 rounded-full bg-white text-[#0D0D0D] text-[12px] font-semibold tracking-tight">
+            Soft
+          </span>
+          <span id="heroActiveCategoryBadge" class="text-[13px] font-medium tracking-wide text-white/95">
+            Warm Winter Layers
+          </span>
+        </div>
+
+        <!-- Main H1 Heading with Staggered Word Reveal Animation -->
+        <h1 class="font-display text-white text-[38px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-semibold tracking-[-0.03em] leading-[1.06] mb-6 max-w-3xl">
+          <span class="word-animate" style="animation-delay: 0.12s;">Premium</span>
+          <span class="word-animate" style="animation-delay: 0.20s;">wear</span>
+          <span class="word-animate" style="animation-delay: 0.28s;">for</span>
+          <span class="word-animate" style="animation-delay: 0.36s;">modern</span>
+          <span class="word-animate" style="animation-delay: 0.44s;">living</span>
+        </h1>
+
+        <!-- Subtitle Paragraph -->
+        <p class="fade-up-2 text-white/85 text-[15px] sm:text-[17px] md:text-[18px] font-normal leading-[1.6] max-w-[560px] mb-9">
+          Discover our new range of soft clothes made for your daily look and your best days with the finest fabrics.
+        </p>
+
+        <!-- Two Hero CTA Buttons with Framer Double-Text Vertical Slide Animation -->
+        <div class="fade-up-3 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+          <!-- Primary White Button: "See all collections" -->
+          <a 
+            href="#shop" 
+            class="framer-btn inline-flex items-center justify-center bg-white hover:bg-white/95 text-[#0D0D0D] text-[14px] sm:text-[15px] font-semibold px-7 py-3.5 rounded-full shadow-lg transition-all duration-300 hover:scale-[1.02]"
+          >
+            <span class="framer-slide-link">
+              <span class="slide-inner">
+                <span>See all collections</span>
+                <span>See all collections</span>
+              </span>
+            </span>
+          </a>
+
+          <!-- Secondary Glass Button: "Contact us" -->
+          <a 
+            href="#contact" 
+            class="framer-btn inline-flex items-center justify-center bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white text-[14px] sm:text-[15px] font-medium px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.02]"
+          >
+            <span class="framer-slide-link">
+              <span class="slide-inner">
+                <span>Contact us</span>
+                <span>Contact us</span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom-of-Hero Interactive 7-Card Lookbook Carousel / Grid -->
+      <div class="fade-up-4 relative z-10 w-full px-4 sm:px-8 pb-6 sm:pb-8">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <span class="text-[11px] uppercase tracking-[0.18em] text-white/70 font-medium">
+            Explore Lookbook Editions (Click any card to preview)
+          </span>
+          <div class="hidden sm:flex items-center gap-2">
+            <button onclick="scrollLookbook(-260)" aria-label="Scroll left" class="w-7 h-7 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-md transition-colors">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button onclick="scrollLookbook(260)" aria-label="Scroll right" class="w-7 h-7 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-md transition-colors">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7 Lookbook Cards Container -->
+        <div 
+          id="heroLookbookStrip" 
+          class="grid grid-flow-col auto-cols-[145px] sm:auto-cols-[165px] lg:grid-cols-7 gap-3 sm:gap-3.5 overflow-x-auto no-scrollbar py-2 cursor-grab active:cursor-grabbing"
+        >
+          <!-- Card 1: Urban -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(0)"
+            data-index="0"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/Or4CSjqekPU2Ug6V0zSDTbgtg.jpg?width=1734&height=1564" 
+              alt="Woman in greenish shirt" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Urban</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 2: Latest -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(1)"
+            data-index="1"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/YI6OX1Ix0QFPJHufS272fscYaI.jpg?width=1060&height=1074" 
+              alt="Woman in blue lather jacket" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Latest</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 3: Premium -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(2)"
+            data-index="2"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/HaLbFMQL3UBYnLDE5V1KjUjLbU.jpg?width=1584&height=1530" 
+              alt="Premium collection look" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Premium</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 4: Arctic (Default Active Hero Image) -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(3)"
+            data-index="3"
+            class="lookbook-card active-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/g813yVl0fq2gEobS7kOZx537SY.jpg?width=1408&height=1408" 
+              alt="Arctic collection look" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Arctic</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 5: Casual -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(4)"
+            data-index="4"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/UqbagK5Zf6G91yyijIvdScOQDI.png?width=1555&height=1692" 
+              alt="Casual collection look" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Casual</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 6: Iconic -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(5)"
+            data-index="5"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/7dwU69CcPP5QPRAcGcQvWaJXm3c.png?width=1264&height=1578" 
+              alt="Iconic collection look" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Iconic</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+
+          <!-- Card 7: Unique -->
+          <button 
+            type="button"
+            onclick="setHeroShowcase(6)"
+            data-index="6"
+            class="lookbook-card group relative h-[175px] sm:h-[195px] rounded-[18px] overflow-hidden border border-white/25 text-left focus:outline-none"
+          >
+            <img 
+              src="https://framerusercontent.com/images/xXRw7s77WdhR0P4zOTGGkDW2qs.jpg?width=1840&height=1934" 
+              alt="Unique collection look" 
+              class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+            <div class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between">
+              <span class="text-white text-[14px] font-medium tracking-tight">Unique</span>
+              <span class="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i data-lucide="arrow-up-right" class="w-3 h-3 text-white"></i>
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 4. SHOP / ALL COLLECTIONS SECTION (#shop)                             -->
+  <!-- ===================================================================== -->
+  <section id="shop" class="py-20 sm:py-28 max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F3F3F1] text-[12px] font-semibold text-[#0D0D0D] mb-4">
+          <span class="w-2 h-2 rounded-full bg-[#0D0D0D]"></span>
+          <span>Seasonal Lookbook</span>
+        </div>
+        <h2 class="font-display text-[32px] sm:text-[44px] font-semibold tracking-[-0.03em] text-[#0D0D0D] leading-tight">
+          Explore all collections
+        </h2>
+      </div>
+      <p class="text-[#666666] text-[15px] max-w-md leading-relaxed">
+        Crafted from ultra-soft organic cottons, brushed wool blends, and weather-resistant outer shells for effortless everyday layering.
+      </p>
+    </div>
+
+    <!-- Category Filter Pills (All + 7 Exact Framer Categories) -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-4 mb-10 border-b border-black/[0.07]">
+      <button onclick="filterProducts('All')" data-filter="All" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#0D0D0D] text-white transition-all shrink-0">
+        All Items (7)
+      </button>
+      <button onclick="filterProducts('Urban')" data-filter="Urban" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Urban
+      </button>
+      <button onclick="filterProducts('Latest')" data-filter="Latest" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Latest
+      </button>
+      <button onclick="filterProducts('Premium')" data-filter="Premium" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Premium
+      </button>
+      <button onclick="filterProducts('Arctic')" data-filter="Arctic" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Arctic
+      </button>
+      <button onclick="filterProducts('Casual')" data-filter="Casual" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Casual
+      </button>
+      <button onclick="filterProducts('Iconic')" data-filter="Iconic" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Iconic
+      </button>
+      <button onclick="filterProducts('Unique')" data-filter="Unique" class="shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0">
+        Unique
+      </button>
+    </div>
+
+    <!-- Product Grid (Populated via JS using the 7 exact Framer images) -->
+    <div id="shopProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+      <!-- Populated dynamically -->
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. ABOUT / CRAFTSMANSHIP BENTO SECTION (#about)                       -->
+  <!-- ===================================================================== -->
+  <section id="about" class="py-20 sm:py-28 bg-[#F7F7F5] border-y border-black/[0.06]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      <div class="max-w-3xl mb-14">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/10 text-[12px] font-semibold text-[#0D0D0D] mb-4">
+          <span>Soft &bull; Warm Winter Layers</span>
+        </div>
+        <h2 class="font-display text-[32px] sm:text-[46px] font-semibold tracking-[-0.03em] text-[#0D0D0D] leading-[1.12] mb-5">
+          Designed for your daily look and your best days with the finest fabrics.
+        </h2>
+        <p class="text-[#555555] text-[16px] leading-relaxed">
+          Every silhouette in our collection balances architectural minimalism with cloud-like tactile comfort—engineered to transition effortlessly from crisp morning commutes to relaxed evening gatherings.
+        </p>
+      </div>
+
+      <!-- Bento Grid using Original Framer Photography -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Large Left Feature Card -->
+        <div class="lg:col-span-7 group relative rounded-[28px] overflow-hidden min-h-[420px] sm:min-h-[520px] flex flex-col justify-end p-8 sm:p-10 bg-black">
+          <img 
+            src="https://framerusercontent.com/images/HaLbFMQL3UBYnLDE5V1KjUjLbU.jpg?width=1584&height=1530" 
+            alt="Premium Winter Craftsmanship" 
+            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
+          <div class="relative z-10 max-w-lg text-white">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[12px] font-medium mb-3">
+              01 / Finest Fabrics
+            </span>
+            <h3 class="font-display text-2xl sm:text-3xl font-semibold mb-2">
+              Tactile softness that holds its form
+            </h3>
+            <p class="text-white/80 text-sm sm:text-base leading-relaxed">
+              We source long-staple organic cotton, ethically milled merino wool, and weather-shielded technical weaves that feel weightless on the skin.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column 2-Stack -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <!-- Top Card -->
+          <div class="group relative rounded-[28px] overflow-hidden min-h-[250px] flex-1 flex flex-col justify-end p-7 bg-black">
+            <img 
+              src="https://framerusercontent.com/images/Or4CSjqekPU2Ug6V0zSDTbgtg.jpg?width=1734&height=1564" 
+              alt="Woman in greenish shirt" 
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="relative z-10 text-white">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-medium mb-2">
+                02 / Urban Tailoring
+              </span>
+              <h3 class="font-display text-xl font-semibold mb-1">Modern everyday proportions</h3>
+              <p class="text-white/80 text-xs sm:text-sm">Relaxed drapes and clean seamlines built for movement.</p>
+            </div>
+          </div>
+
+          <!-- Bottom Card -->
+          <div class=" rounded-[28px] bg-[#0D0D0D] text-white p-8 flex flex-col justify-between min-h-[240px]">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-white/10 text-[12px] font-medium text-white/90">
+                Black Friday Event
+              </span>
+              <span class="text-2xl font-display font-bold text-white">50% OFF</span>
+            </div>
+            <div class="my-4">
+              <h3 class="font-display text-2xl font-semibold mb-2">Warm Winter Layers</h3>
+              <p class="text-white/70 text-sm leading-relaxed">
+                Enjoy 50% off sitewide on all 7 signature capsule editions during our seasonal Black Friday release.
+              </p>
+            </div>
+            <div>
+              <a href="#shop" class="framer-btn inline-flex items-center gap-2 bg-white text-[#0D0D0D] text-xs font-semibold px-5 py-2.5 rounded-full">
+                <span class="framer-slide-link">
+                  <span class="slide-inner">
+                    <span>Shop the 50% off sale</span>
+                    <span>Shop the 50% off sale</span>
+                  </span>
+                </span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. BLOG / EDITORIAL JOURNAL SECTION (#blog)                           -->
+  <!-- ===================================================================== -->
+  <section id="blog" class="py-20 sm:py-28 max-w-[1440px] mx-auto px-4 sm:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F3F3F1] text-[12px] font-semibold text-[#0D0D0D] mb-4">
+          <span>Editorial Journal</span>
+        </div>
+        <h2 class="font-display text-[32px] sm:text-[44px] font-semibold tracking-[-0.03em] text-[#0D0D0D] leading-tight">
+          Stories on modern living
+        </h2>
+      </div>
+      <a href="#shop" class="framer-slide-link text-[14px] font-semibold text-[#0D0D0D]">
+        <span class="slide-inner">
+          <span>View full lookbook &rarr;</span>
+          <span>View full lookbook &rarr;</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+      <!-- Article 1 -->
+      <article onclick="openJournalModal(0)" class="group cursor-pointer flex flex-col">
+        <div class="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#F3F3F1] mb-5">
+          <img 
+            src="https://framerusercontent.com/images/YI6OX1Ix0QFPJHufS272fscYaI.jpg?width=1060&height=1074" 
+            alt="Woman in blue lather jacket" 
+            class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-semibold text-[#0D0D0D]">
+            Winter Styling
+          </span>
+        </div>
+        <div class="text-[12px] text-[#666666] mb-2">5 min read &bull; Lookbook Series</div>
+        <h3 class="font-display text-[20px] font-semibold text-[#0D0D0D] group-hover:text-black/70 transition-colors mb-2">
+          The Art of Warm Winter Layers: Balancing Structure &amp; Softness
+        </h3>
+        <p class="text-[#666666] text-[14px] leading-relaxed">
+          How to pair structured outer leather and arctic puffers with breathable organic base layers for sub-zero comfort.
+        </p>
+      </article>
+
+      <!-- Article 2 -->
+      <article onclick="openJournalModal(1)" class="group cursor-pointer flex flex-col">
+        <div class="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#F3F3F1] mb-5">
+          <img 
+            src="https://framerusercontent.com/images/xXRw7s77WdhR0P4zOTGGkDW2qs.jpg?width=1840&height=1934" 
+            alt="Unique Editorial Look" 
+            class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-semibold text-[#0D0D0D]">
+            Material Lab
+          </span>
+        </div>
+        <div class="text-[12px] text-[#666666] mb-2">4 min read &bull; Craftsmanship</div>
+        <h3 class="font-display text-[20px] font-semibold text-[#0D0D0D] group-hover:text-black/70 transition-colors mb-2">
+          Why Finest Fabrics Matter: Inside Our Brushed Fleece &amp; Wool Mill
+        </h3>
+        <p class="text-[#666666] text-[14px] leading-relaxed">
+          A closer look at the weave density and natural softening treatments behind our signature daily essentials.
+        </p>
+      </article>
+
+      <!-- Article 3 -->
+      <article onclick="openJournalModal(2)" class="group cursor-pointer flex flex-col">
+        <div class="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#F3F3F1] mb-5">
+          <img 
+            src="https://framerusercontent.com/images/7dwU69CcPP5QPRAcGcQvWaJXm3c.png?width=1264&height=1578" 
+            alt="Iconic Minimalist Wardrobe" 
+            class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+          <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-semibold text-[#0D0D0D]">
+            Capsule Guide
+          </span>
+        </div>
+        <div class="text-[12px] text-[#666666] mb-2">6 min read &bull; Modern Living</div>
+        <h3 class="font-display text-[20px] font-semibold text-[#0D0D0D] group-hover:text-black/70 transition-colors mb-2">
+          7 Iconic Pieces for Effortless Daily Looks All Season Long
+        </h3>
+        <p class="text-[#666666] text-[14px] leading-relaxed">
+          Building a versatile modular wardrobe around our Urban, Latest, Premium, Arctic, Casual, Iconic, and Unique editions.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 7. CONTACT & FOOTER SECTION (#contact)                                -->
+  <!-- ===================================================================== -->
+  <section id="contact" class="px-3 sm:px-6 pb-8 max-w-[1440px] mx-auto">
+    <div class="bg-[#0D0D0D] text-white rounded-[28px] sm:rounded-[36px] p-8 sm:p-14 lg:p-20 overflow-hidden relative">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+        <!-- Left Column: Contact Copy -->
+        <div class="lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-3.5 py-1 rounded-full bg-white/10 text-white/90 text-[12px] font-medium mb-5">
+              Contact us
+            </span>
+            <h2 class="font-display text-[34px] sm:text-[48px] font-semibold tracking-[-0.03em] leading-[1.1] mb-5">
+              Need styling advice or order assistance?
+            </h2>
+            <p class="text-white/70 text-[15px] sm:text-[16px] max-w-md leading-relaxed mb-8">
+              Reach out to our client concierge team for sizing recommendations, fabric care details, or wholesale inquiries.
+            </p>
+          </div>
+
+          <div class="space-y-3 text-sm text-white/80">
+            <div class="flex items-center gap-3">
+              <i data-lucide="mail" class="w-4 h-4 text-white/60"></i>
+              <span>concierge@modernlivingwear.com</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="clock" class="w-4 h-4 text-white/60"></i>
+              <span>Mon – Sat, 9:00 AM – 7:00 PM EST</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Framer Contact Form -->
+        <div class="lg:col-span-6">
+          <form id="contactForm" onsubmit="handleContactSubmit(event)" class="bg-white/[0.06] border border-white/10 rounded-[24px] p-6 sm:p-8 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-white/70 mb-1.5" for="contactName">Full Name</label>
+                <input 
+                  id="contactName" 
+                  type="text" 
+                  required 
+                  placeholder="Alex Morgan" 
+                  class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-white"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-white/70 mb-1.5" for="contactEmail">Email Address</label>
+                <input 
+                  id="contactEmail" 
+                  type="email" 
+                  required 
+                  placeholder="alex@example.com" 
+                  class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-white"
+                />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-white/70 mb-1.5" for="contactTopic">Collection of Interest</label>
+              <select 
+                id="contactTopic" 
+                class="w-full px-4 py-3 rounded-xl bg-[#1A1A1A] border border-white/15 text-white text-sm focus:outline-none focus:border-white"
+              >
+                <option value="General Inquiry">Warm Winter Layers — General Inquiry</option>
+                <option value="Urban Edition">Urban Edition</option>
+                <option value="Latest Edition">Latest Edition</option>
+                <option value="Premium Edition">Premium Edition</option>
+                <option value="Arctic Edition">Arctic Edition</option>
+                <option value="Casual Edition">Casual Edition</option>
+                <option value="Iconic Edition">Iconic Edition</option>
+                <option value="Unique Edition">Unique Edition</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-white/70 mb-1.5" for="contactMsg">Message</label>
+              <textarea 
+                id="contactMsg" 
+                rows="3" 
+                required 
+                placeholder="Tell us how we can help..." 
+                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-white placeholder:text-white/40 text-sm focus:outline-none focus:border-white"
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              class="framer-btn w-full py-3.5 bg-white hover:bg-white/90 text-[#0D0D0D] font-semibold text-sm rounded-full transition-all"
+            >
+              <span class="framer-slide-link">
+                <span class="slide-inner">
+                  <span>Send message</span>
+                  <span>Send message</span>
+                </span>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer Bottom Bar -->
+      <div class="pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <a href="#home" class="bg-white px-3.5 py-2 rounded-full inline-flex items-center">
+            <img 
+              src="https://framerusercontent.com/images/k3mQgskzRmcKKsc3Urx85y2azU.svg?width=67&height=23" 
+              alt="Brand Logo" 
+              width="67" 
+              height="23" 
+              class="w-[67px] h-[23px] object-contain"
+            />
+          </a>
+          <span class="text-xs text-white/50">Premium wear for modern living.</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 text-xs font-medium text-white/75">
+          <a href="#home" class="hover:text-white transition-colors">Home</a>
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#shop" class="hover:text-white transition-colors">Shop</a>
+          <a href="#blog" class="hover:text-white transition-colors">Blog</a>
+          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </div>
+
+        <p class="text-xs text-white/45">
+          &copy; 2026 All rights reserved. Black Friday Sale 50% Off.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE-OVER SHOPPING BAG DRAWER                                        -->
+  <!-- ===================================================================== -->
+  <div id="cartDrawerBackdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"></div>
+  <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col justify-between">
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-black/10 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+        <h3 class="font-display text-lg font-semibold">Your Shopping Bag</h3>
+        <span id="drawerCountLabel" class="text-xs px-2.5 py-0.5 rounded-full bg-[#F3F3F1] font-medium">2</span>
+      </div>
+      <button onclick="toggleCartDrawer(false)" aria-label="Close bag" class="w-8 h-8 rounded-full bg-[#F3F3F1] hover:bg-black/10 flex items-center justify-center">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Promo Banner inside Cart -->
+    <div class="bg-[#0D0D0D] text-white px-6 py-2 text-xs font-medium text-center">
+      Black friday sale 50% off applied automatically at checkout
+    </div>
+
+    <!-- Cart Items Container -->
+    <div id="cartItemsList" class="p-6 flex-1 overflow-y-auto space-y-4">
+      <!-- Populated via JS -->
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-6 border-t border-black/10 bg-[#F7F7F5] space-y-4">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-[#666666]">Subtotal (50% Black Friday Savings)</span>
+        <strong id="cartSubtotalAmount" class="text-base font-semibold text-[#0D0D0D]">$228.00</strong>
+      </div>
+      <button onclick="handleCheckout()" class="w-full py-3.5 rounded-full bg-[#0D0D0D] hover:bg-[#222222] text-white text-sm font-semibold transition-all">
+        Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================================================================== -->
+  <!-- PRODUCT / JOURNAL QUICK-VIEW MODAL                                    -->
+  <!-- ===================================================================== -->
+  <div id="quickViewModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-[28px] max-w-2xl w-full overflow-hidden shadow-2xl relative grid grid-cols-1 md:grid-cols-2">
+      <button onclick="closeQuickView()" aria-label="Close modal" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-black flex items-center justify-center shadow-md">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+      <div class="aspect-square md:aspect-auto bg-[#F3F3F1] h-full">
+        <img id="modalImg" src="" alt="" class="w-full h-full object-cover" />
+      </div>
+      <div class="p-6 sm:p-8 flex flex-col justify-between">
+        <div>
+          <span id="modalCategory" class="inline-block px-3 py-1 rounded-full bg-[#F3F3F1] text-[11px] font-semibold uppercase tracking-wider mb-3"></span>
+          <h3 id="modalTitle" class="font-display text-2xl font-semibold text-[#0D0D0D] mb-2"></h3>
+          <div class="flex items-center gap-2.5 mb-4">
+            <span id="modalPrice" class="text-lg font-semibold text-[#0D0D0D]"></span>
+            <span id="modalOldPrice" class="text-sm text-[#888888] line-through"></span>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-white">50% OFF</span>
+          </div>
+          <p id="modalDesc" class="text-sm text-[#555555] leading-relaxed mb-6"></p>
+
+          <!-- Size Selector -->
+          <div class="mb-6">
+            <span class="block text-xs font-semibold uppercase tracking-wider text-[#666666] mb-2">Select Size</span>
+            <div class="flex gap-2">
+              <button type="button" onclick="selectSize(this)" class="size-btn w-10 h-10 rounded-full border border-black/15 text-xs font-medium hover:border-black">S</button>
+              <button type="button" onclick="selectSize(this)" class="size-btn w-10 h-10 rounded-full border border-black bg-black text-white text-xs font-medium">M</button>
+              <button type="button" onclick="selectSize(this)" class="size-btn w-10 h-10 rounded-full border border-black/15 text-xs font-medium hover:border-black">L</button>
+              <button type="button" onclick="selectSize(this)" class="size-btn w-10 h-10 rounded-full border border-black/15 text-xs font-medium hover:border-black">XL</button>
+            </div>
+          </div>
+        </div>
+
+        <button id="modalAddBtn" class="w-full py-3.5 rounded-full bg-[#0D0D0D] hover:bg-[#222222] text-white text-sm font-semibold transition-all">
+          Add to Shopping Bag
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#0D0D0D] text-white px-5 py-3 rounded-full shadow-xl text-xs sm:text-sm font-medium flex items-center gap-2.5 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="toastMessage">Added to bag</span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: HERO LOOKBOOK SWITCHER, SHOP CATALOG & CART               -->
+  <!-- ===================================================================== -->
+  <script>
+    lucide.createIcons();
+
+    // Exact 7 Framer Lookbook / Product Items with Original Framer Image URLs
+    const framerProducts = [
+      {
+        id: 1,
+        category: "Urban",
+        name: "Urban Olive Overshirt",
+        badgeText: "Urban • Warm Winter Layers",
+        price: 110,
+        oldPrice: 220,
+        image: "https://framerusercontent.com/images/Or4CSjqekPU2Ug6V0zSDTbgtg.jpg?width=1734&height=1564",
+        alt: "Woman in greenish shirt",
+        desc: "Relaxed-fit brushed organic cotton overshirt in muted sage green. Engineered for effortless urban layering."
+      },
+      {
+        id: 2,
+        category: "Latest",
+        name: "Cobalt Moto Leather Jacket",
+        badgeText: "Latest • Warm Winter Layers",
+        price: 195,
+        oldPrice: 390,
+        image: "https://framerusercontent.com/images/YI6OX1Ix0QFPJHufS272fscYaI.jpg?width=1060&height=1074",
+        alt: "Woman in blue lather jacket",
+        desc: "Supple full-grain cobalt blue leather jacket with minimal matte hardware and insulated quilted lining."
+      },
+      {
+        id: 3,
+        category: "Premium",
+        name: "Shearling Collar Aviator Coat",
+        badgeText: "Premium • Warm Winter Layers",
+        price: 165,
+        oldPrice: 330,
+        image: "https://framerusercontent.com/images/HaLbFMQL3UBYnLDE5V1KjUjLbU.jpg?width=1584&height=1530",
+        alt: "Premium shearling winter coat",
+        desc: "Plush high-pile shearling fleece collar paired with a windproof structured outer shell for crisp winter days."
+      },
+      {
+        id: 4,
+        category: "Arctic",
+        name: "Arctic Cloud Down Puffer",
+        badgeText: "Warm Winter Layers",
+        price: 145,
+        oldPrice: 290,
+        image: "https://framerusercontent.com/images/g813yVl0fq2gEobS7kOZx537SY.jpg?width=1408&height=1408",
+        alt: "Arctic winter layer jacket",
+        desc: "Our signature hero silhouette. Featherlight recycled down fill wrapped in a water-repellent matte micro-ripstop shell."
+      },
+      {
+        id: 5,
+        category: "Casual",
+        name: "Everyday Soft Knit Lounge Set",
+        badgeText: "Casual • Warm Winter Layers",
+        price: 95,
+        oldPrice: 190,
+        image: "https://framerusercontent.com/images/UqbagK5Zf6G91yyijIvdScOQDI.png?width=1555&height=1692",
+        alt: "Casual soft knitwear",
+        desc: "Spun from combed merino and organic pima cotton for unmatched daily softness and breathable warmth."
+      },
+      {
+        id: 6,
+        category: "Iconic",
+        name: "Iconic Tailored Wool Overcoat",
+        badgeText: "Iconic • Warm Winter Layers",
+        price: 180,
+        oldPrice: 360,
+        image: "https://framerusercontent.com/images/7dwU69CcPP5QPRAcGcQvWaJXm3c.png?width=1264&height=1578",
+        alt: "Iconic tailored wool coat",
+        desc: "Timeless double-faced wool-cashmere silhouette with dropped shoulders and clean architectural lapels."
+      },
+      {
+        id: 7,
+        category: "Unique",
+        name: "Unique Artisan Textured Knit",
+        badgeText: "Unique • Warm Winter Layers",
+        price: 125,
+        oldPrice: 250,
+        image: "https://framerusercontent.com/images/xXRw7s77WdhR0P4zOTGGkDW2qs.jpg?width=1840&height=1934",
+        alt: "Unique editorial knitwear",
+        desc: "Statement tactile knitwear crafted in small batches using bouclé yarns and subtle tonal contrast stitching."
+      }
+    ];
+
+    // Switch Hero Background Image when clicking any of the 7 Lookbook Cards
+    function setHeroShowcase(index) {
+      const item = framerProducts[index];
+      if (!item) return;
+
+      const heroImg = document.getElementById('heroMainBg');
+      const badgeLabel = document.getElementById('heroActiveCategoryBadge');
+
+      heroImg.style.opacity = '0.35';
+      heroImg.style.transform = 'scale(1.05)';
+
+      setTimeout(() => {
+        heroImg.src = item.image;
+        heroImg.alt = item.alt;
+        badgeLabel.textContent = item.badgeText;
+        heroImg.style.opacity = '1';
+        heroImg.style.transform = 'scale(1.01)';
+      }, 220);
+
+      // Update active card ring
+      document.querySelectorAll('.lookbook-card').forEach((card, idx) => {
+        if (idx === index) {
+          card.classList.add('active-card');
+        } else {
+          card.classList.remove('active-card');
+        }
+      });
+    }
+
+    function scrollLookbook(offset) {
+      const strip = document.getElementById('heroLookbookStrip');
+      strip.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+
+    // Render Shop Product Grid
+    function renderShopProducts(filter = 'All') {
+      const grid = document.getElementById('shopProductGrid');
+      const filtered = filter === 'All'
+        ? framerProducts
+        : framerProducts.filter(p => p.category === filter);
+
+      grid.innerHTML = filtered.map(product => `
+        <div class="group bg-white rounded-[24px] border border-black/[0.08] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+          <div>
+            <div class="relative aspect-[4/5] bg-[#F3F3F1] overflow-hidden cursor-pointer" onclick="openQuickView(${product.id})">
+              <img 
+                src="${product.image}" 
+                alt="${product.alt}" 
+                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="absolute top-3.5 left-3.5 flex items-center gap-1.5">
+                <span class="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-semibold text-[#0D0D0D]">
+                  ${product.category}
+                </span>
+                <span class="px-2.5 py-1 rounded-full bg-[#0D0D0D] text-white text-[10px] font-semibold">
+                  -50%
+                </span>
+              </div>
+              <button 
+                type="button"
+                onclick="event.stopPropagation(); openQuickView(${product.id})"
+                class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-black flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                aria-label="Quick view ${product.name}"
+              >
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <div class="p-5">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <h3 class="font-display text-[17px] font-semibold text-[#0D0D0D] truncate">${product.name}</h3>
+              </div>
+              <p class="text-xs text-[#666666] line-clamp-2 mb-4 leading-relaxed">${product.desc}</p>
+              <div class="flex items-center justify-between pt-3 border-t border-black/[0.06]">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-[16px] font-semibold text-[#0D0D0D]">$${product.price}.00</span>
+                  <span class="text-xs text-[#888888] line-through">$${product.oldPrice}.00</span>
+                </div>
+                <button 
+                  type="button"
+                  onclick="addToCart(${product.id})"
+                  class="px-4 py-2 rounded-full bg-[#0D0D0D] hover:bg-[#252525] text-white text-xs font-medium transition-colors"
+                >
+                  Add to bag
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function filterProducts(category) {
+      document.querySelectorAll('.shop-filter-btn').forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.className = 'shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#0D0D0D] text-white transition-all shrink-0';
+        } else {
+          btn.className = 'shop-filter-btn px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#F3F3F1] hover:bg-[#E7E7E4] text-[#0D0D0D] transition-all shrink-0';
+        }
+      });
+      renderShopProducts(category);
+    }
+
+    // Shopping Bag State
+    let cart = [
+      { ...framerProducts[3], qty: 1 },
+      { ...framerProducts[0], qty: 1 }
+    ];
+
+    function renderCart() {
+      const list = document.getElementById('cartItemsList');
+      const badge = document.getElementById('cartCountBadge');
+      const drawerCount = document.getElementById('drawerCountLabel');
+      const subtotalEl = document.getElementById('cartSubtotalAmount');
+
+      const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+      const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+      badge.textContent = totalQty;
+      drawerCount.textContent = totalQty;
+      subtotalEl.textContent = `$${totalPrice.toFixed(2)}`;
+
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-16 text-sm text-[#666666]">
+            Your shopping bag is currently empty.
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = cart.map(item => `
+        <div class="flex gap-4 p-3 rounded-2xl bg-[#F7F7F5] border border-black/5">
+          <img src="${item.image}" alt="${item.alt}" class="w-20 h-24 rounded-xl object-cover shrink-0" />
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <h4 class="text-sm font-semibold text-[#0D0D0D]">${item.name}</h4>
+                <button onclick="removeFromCart(${item.id})" class="text-xs text-[#888888] hover:text-black">Remove</button>
+              </div>
+              <span class="text-[11px] text-[#666666]">${item.category} Edition &bull; Size M</span>
+            </div>
+            <div class="flex items-center justify-between mt-2">
+              <div class="flex items-center gap-2 bg-white rounded-full px-2.5 py-1 border border-black/10">
+                <button onclick="updateQty(${item.id}, -1)" class="text-xs font-bold px-1">-</button>
+                <span class="text-xs font-medium">${item.qty}</span>
+                <button onclick="updateQty(${item.id}, 1)" class="text-xs font-bold px-1">+</button>
+              </div>
+              <span class="text-sm font-semibold">$${(item.price * item.qty).toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(productId) {
+      const product = framerProducts.find(p => p.id === productId);
+      if (!product) return;
+      const existing = cart.find(i => i.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      renderCart();
+      showToast(`Added "${product.name}" to your bag`);
+    }
+
+    function updateQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== productId);
+      }
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      renderCart();
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartDrawerBackdrop');
+      if (open) {
+        backdrop.classList.remove('hidden');
+        setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+        drawer.classList.remove('translate-x-full');
+      } else {
+        backdrop.classList.add('opacity-0');
+        drawer.classList.add('translate-x-full');
+        setTimeout(() => backdrop.classList.add('hidden'), 300);
+      }
+    }
+
+    // Quick View Modal
+    function openQuickView(productId) {
+      const product = framerProducts.find(p => p.id === productId);
+      if (!product) return;
+
+      document.getElementById('modalImg').src = product.image;
+      document.getElementById('modalImg').alt = product.alt;
+      document.getElementById('modalCategory').textContent = `${product.category} Collection`;
+      document.getElementById('modalTitle').textContent = product.name;
+      document.getElementById('modalPrice').textContent = `$${product.price}.00`;
+      document.getElementById('modalOldPrice').textContent = `$${product.oldPrice}.00`;
+      document.getElementById('modalDesc').textContent = product.desc;
+
+      const addBtn = document.getElementById('modalAddBtn');
+      addBtn.onclick = () => {
+        addToCart(product.id);
+        closeQuickView();
+      };
+
+      const modal = document.getElementById('quickViewModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function openJournalModal(idx) {
+      const mapping = [2, 7, 6];
+      openQuickView(mapping[idx] || 4);
+    }
+
+    function closeQuickView() {
+      const modal = document.getElementById('quickViewModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function selectSize(btn) {
+      document.querySelectorAll('.size-btn').forEach(b => {
+        b.className = 'size-btn w-10 h-10 rounded-full border border-black/15 text-xs font-medium hover:border-black';
+      });
+      btn.className = 'size-btn w-10 h-10 rounded-full border border-black bg-black text-white text-xs font-medium';
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileMenuDrawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      e.target.reset();
+      showToast(`Thank you ${name}, our team will reply shortly!`);
+    }
+
+    function handleCheckout() {
+      toggleCartDrawer(false);
+      showToast('Black Friday 50% Off discount applied — Redirecting to checkout!');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, 3000);
+    }
+
+    // Initialize Shop & Cart on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderShopProducts('All');
+      renderCart();
+    });
+  </script>
+</body>
+</html>
